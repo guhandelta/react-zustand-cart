@@ -13,8 +13,23 @@ export type CartActions = {
     decrementQuantity: (item: CartItem) => void;
 };
 
+// CartState & CartActions: This defines the TypeScript types for the state and the actions, ensuring type safety.
 export const useCartStore = create<CartState & CartActions>()(
+    // persist: Wraps the state and actions definition, enabling the cart's state to be saved to and loaded from local storage, or another persistence layer, keyed by "cart-storage".
     persist(
+
+        /*
+            In Zustand, the (set, get) => ({}) function is the core configuration function used to define the state and actions of the store. This function is essential for setting up both the initial state of the store and the methods (actions) that will manipulate that state. Here’s a detailed breakdown of what set, get, and the function itself represent:
+
+            The Setup Function: (set, get) => ({})
+
+            set: This is a function that you can use to update the state of the store. It's used within the actions to change the state based on interactions or events in your application. You can pass an object to set that represents the new state, or a function that returns the new state. The function version is particularly useful when the new state depends on the current state.
+
+            get: This function allows you to access the current state of the store from within your actions. It’s a synchronous function that returns the current state directly, enabling you to make decisions or compute new values based on the existing state.
+            
+            The Return Object ({}): Inside this setup function, you return an object that defines both the initial state of your store and any actions (methods) that can modify this state. This object typically includes properties for the state variables and functions for actions that will use set and get to perform state updates.
+        */
+
         (set, get) => ({
         cartItems: [],
         addItem: (item: CartItem) => {
@@ -22,7 +37,7 @@ export const useCartStore = create<CartState & CartActions>()(
             const itemIndex = findItemIndex(items, item);
 
             if (itemIndex === -1) {
-            set({ cartItems: [...items, { ...item, quantity: 1 }] });
+                set({ cartItems: [...items, { ...item, quantity: 1 }] });
             }
         },
         removeItem: (item: CartItem) => {
@@ -31,7 +46,7 @@ export const useCartStore = create<CartState & CartActions>()(
 
             if (itemIndex > -1) {
             items.splice(itemIndex, 1);
-            set({ cartItems: [...items] });
+                set({ cartItems: [...items] });
             }
         },
         incrementQuantity: (item: CartItem) => {
@@ -40,7 +55,7 @@ export const useCartStore = create<CartState & CartActions>()(
 
             if (itemIndex > -1) {
             items[itemIndex].quantity++;
-            set({ cartItems: [...items] });
+                set({ cartItems: [...items] });
             }
         },
         decrementQuantity: (item: CartItem) => {
@@ -55,7 +70,7 @@ export const useCartStore = create<CartState & CartActions>()(
                 items.splice(itemIndex, 1);
             }
 
-            set({ cartItems: [...items] });
+                set({ cartItems: [...items] });
             }
         },
         }),

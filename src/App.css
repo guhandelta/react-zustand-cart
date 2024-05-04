@@ -141,6 +141,26 @@
   line-height: initial;
 }
 
+.product-title{
+  color: #242424;
+
+  :hover {
+    cursor: default;
+    color: aquamarine;
+  }
+}
+.product-price{
+  color: #242424;
+
+  :hover {
+    color: aquamarine;
+  }
+}
+
+.product-desc {
+  color: #242424;
+}
+
 .product-quantity button {
   border-radius: 0;
 }
